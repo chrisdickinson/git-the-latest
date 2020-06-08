@@ -12,7 +12,8 @@ if (fs.existsSync(dir)) {
   return process.exit(1)
 }
 
-const tmp = fs.mkdtempSync('git-template')
+const prefix = path.join(os.tmpdir(), 'git-template-')
+const tmp = fs.mkdtempSync(prefix)
 
 spawnSync('git', ['init'], {
   cwd: tmp
