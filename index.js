@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict'
-const { spawnSync, execSync } = require('child_process')
-const untildify = require('untildify')
+const { spawnSync } = require('child_process')
 const path = require('path')
 const fs = require('fs')
 const os = require('os')
