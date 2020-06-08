@@ -12,8 +12,7 @@ if (fs.existsSync(dir)) {
   return process.exit(1)
 }
 
-const { stdout } = spawnSync('mktemp', ['-d'])
-const tmp = String(stdout).trim()
+const tmp = fs.mkdtempSync('git-template')
 
 spawnSync('git', ['init'], {
   cwd: tmp
