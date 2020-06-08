@@ -5,6 +5,7 @@ const untildify = require('untildify')
 const path = require('path')
 const fs = require('fs')
 const os = require('os')
+const mv = require('mv')
 
 const dir = path.join(os.homedir(), '.git-template')
 if (fs.existsSync(dir)) {
@@ -20,8 +21,11 @@ spawnSync('git', ['init'], {
 })
 
 fs.writeFileSync(path.join(tmp, '.git', 'HEAD'), 'ref: refs/heads/latest')
-fs.renameSync(path.join(tmp, '.git'), dir)
-fs.rmdirSync(tmp)
+mv(path.join(tmp, '.git'), dir, err => {
+  if (err) {
+    throw err
+  }
 
-spawnSync('git', ['config', '--global', '--unset-all', 'init.templateDir'])
-spawnSync('git', ['config', '--global', '--add', 'init.templateDir', dir])
+  spawnSync('git', ['config', '--global', '--unset-all', 'init.templateDir'])
+  spawnSync('git', ['config', '--global', '--add', 'init.templateDir', dir])
+})

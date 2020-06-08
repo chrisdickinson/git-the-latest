@@ -11,6 +11,7 @@
   "author": "Chris Dickinson <chris@neversaw.us> (http://neversaw.us/)",
   "license": "MIT",
   "dependencies": {
+    "mv": "^2.1.1",
     "untildify": "^4.0.0"
   }
 }
