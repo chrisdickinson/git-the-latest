@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict'
-const { spawnSync, execSync } = require('child_process')
-const untildify = require('untildify')
+const { spawnSync } = require('child_process')
 const path = require('path')
 const fs = require('fs')
 const os = require('os')
@@ -13,8 +12,8 @@ if (fs.existsSync(dir)) {
   return process.exit(1)
 }
 
-const { stdout } = spawnSync('mktemp', ['-d'])
-const tmp = String(stdout).trim()
+const prefix = path.join(os.tmpdir(), 'git-template-')
+const tmp = fs.mkdtempSync(prefix)
 
 spawnSync('git', ['init'], {
   cwd: tmp
